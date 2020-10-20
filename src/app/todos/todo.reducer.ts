@@ -39,6 +39,19 @@ const _todoReducer = createReducer(
             }
         } );
     }),
+    on(actions.borrar, (state, { id }) =>
+        state.filter( todo => {
+            return todo.id !== id;
+    })),
+    on(actions.toggleAll, (state, { completado }) =>  {
+        return state.map( todo => {
+            return {
+                    // extrae todas las propiedades
+                    ...todo,
+                    completado: completado
+            }
+        } );
+    }),
 );
 
 export function todoReducer(state,  action) {
