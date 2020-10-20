@@ -1,0 +1,46 @@
+import { createReducer, on, State } from '@ngrx/store';
+import * as actions from './todo.actions';
+import { Todo } from './models/todo.model';
+
+export const initialState: Todo[] = [
+    new Todo('Salvar al mundo 1'),
+    new Todo('Salvar al mundo 2'),
+    new Todo('Salvar al mundo 3'),
+    new Todo('Salvar al mundo 4'),
+];
+
+const _todoReducer = createReducer(
+    initialState,
+    // action( 'nombre', {parametro} => [ destructuracion de [ array], nuevo todo creado con el parametro ] )
+    on(actions.crear, (state, { texto }) =>  [...state, new Todo(texto)]),
+    on(actions.toggleCheck, (state, { id }) =>  {
+        return state.map( todo => {
+            if (todo.id === id) {
+                return {
+                    // extrae todas las propiedades
+                    ...todo,
+                    completado: !todo.completado
+                }
+            }else {
+                return todo;
+            }
+        } );
+    }),
+    on(actions.editar, (state, { id, texto }) =>  {
+        return state.map( todo => {
+            if (todo.id === id) {
+                return {
+                    // extrae todas las propiedades
+                    ...todo,
+                    texto: texto
+                }
+            }else {
+                return todo;
+            }
+        } );
+    }),
+);
+
+export function todoReducer(state,  action) {
+    return _todoReducer(state, action);
+}
