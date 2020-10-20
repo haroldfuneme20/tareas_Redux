@@ -6,3 +6,5 @@ export const toggleCheck = createAction('[TODO] toggleCheck_todo', props<{id: nu
 export const editar = createAction('[TODO] editar_todo', props<{id: number, texto: string}>());
 export const borrar = createAction('[TODO] borrar_todo', props<{id: number}>());
 export const toggleAll = createAction('[TODO] borrar_todo', props<{completado: boolean}>());
+export const limpiarCompletados = createAction('[Filtro] borrar_todo');
+

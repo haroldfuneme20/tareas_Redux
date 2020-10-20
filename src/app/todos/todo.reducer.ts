@@ -1,4 +1,4 @@
-import { createReducer, on, State } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as actions from './todo.actions';
 import { Todo } from './models/todo.model';
 
@@ -51,6 +51,11 @@ const _todoReducer = createReducer(
                     completado: completado
             }
         } );
+    }),
+    on(actions.limpiarCompletados, (state) =>  {
+        return state.filter(todo => {
+            return todo.completado !== true;
+    });
     }),
 );
 
